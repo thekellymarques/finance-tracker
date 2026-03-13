@@ -110,3 +110,55 @@ def logout():
     session.clear()
     flash("Logged out.")
     return redirect("/login")
+
+@app.route("/add", methods=["GET", "POST"])
+@login_required
+def add():
+    if request.method == "GET":
+        return render_template("add.html")
+
+    user_id = session["user_id"]
+
+    type_ = request.form.get("type")
+    amount = request.form.get("amount")
+    description = request.form.get("description")
+    date = request.form.get("date")
+
+    if not type_:
+        flash("You must select a type.")
+        return redirect("/add")
+
+    if type_ not in ["income", "expense"]:
+        flash("Invalid transaction type.")
+        return redirect("/add")
+
+    if not amount:
+        flash("You must provide an amount.")
+        return redirect("/add")
+
+    if not date:
+        flash("You must provide a date.")
+        return redirect("/add")
+
+    try:
+        amount_value = float(amount)
+    except ValueError:
+        flash("Amount must be a valid number.")
+        return redirect("/add")
+
+    if amount_value <= 0:
+        flash("Amount must be greater than 0.")
+        return redirect("/add")
+
+    amount_cents = int(amount_value * 100)
+
+    db.execute(
+        """
+        INSERT INTO transactions (user_id, type, amount_cents, description, date)
+        VALUES (?, ?, ?, ?, ?)
+        """,
+        user_id, type_, amount_cents, description, date
+    )
+
+    flash("Transaction added successfully.")
+    return redirect("/")

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Add Transaction</h1>
+
+    <form action="/add" method="post">
+        <label for="type">Type</label>
+        <select name="type" id="type">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+
+        <label for="amount">Amount</label>
+        <input name="amount" type="number" id="amount" step="0.01" placeholder="0.00">
+
+        <label for="description">Description</label>
+        <input name="description" type="text" id="description" placeholder="Description">
+
+        <label for="date">Date</label>
+        <input name="date" type="date" id="date">
+
+        <button type="submit">Add Transaction</button>
+    </form>
+
+{% endblock %}
