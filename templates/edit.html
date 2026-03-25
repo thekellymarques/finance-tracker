@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h1>Edit Transaction</h1>
+
+<form action="/edit/{{ transaction.id }}" method="post">
+
+    <label>Type</label>
+    <select name="type">
+        <option value="income" {% if transaction.type == "income" %}selected{% endif %}>Income</option>
+        <option value="expense" {% if transaction.type == "expense" %}selected{% endif %}>Expense</option>
+    </select>
+
+    <label for="category_id">Category</label>
+    <select name="category_id" id="category_id">
+        {% for category in categories %}
+            <option value="{{ category.id }}"
+                {% if category.id == transaction.category_id %}selected{% endif %}>
+                {{ category.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Amount</label>
+    <input name="amount" type="number" step="0.01" value="{{ transaction.amount }}">
+
+    <label>Description</label>
+    <input name="description" type="text" value="{{ transaction.description }}">
+
+    <label>Date</label>
+    <input name="date" type="text" value="{{ transaction.date }}">
+
+    <button type="submit">Save Changes</button>
+    
+</form>
+
+{% endblock %}

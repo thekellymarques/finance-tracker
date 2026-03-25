@@ -19,6 +19,14 @@
         <label for="date">Date</label>
         <input name="date" type="date" id="date">
 
+        <label for="Category">Category</label>
+        <select name="category_id">
+            <option value="">Select Category</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+
         <button type="submit">Add Transaction</button>
     </form>
 

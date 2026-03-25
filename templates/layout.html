@@ -9,10 +9,16 @@
 <body>
 
     <nav>
-        <a href="/">Dashboard</a>
+        
+        {% if session.get("user_id") %}
+            <a href="/">Dashboard</a>
+            <a href="/add">Add Transaction</a>
+            <a href="/categories">Categories</a>
+            <a href="/logout">Logout</a>
+        {% else %}
         <a href="/login">Login</a>
         <a href="/register">Register</a>
-        <a href="/logout">Logout</a>
+        {% endif %}
     </nav>
 
     {% with messages = get_flashed_messages() %}
