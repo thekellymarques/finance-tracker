@@ -40,24 +40,46 @@ def after_request(response):
 @login_required
 def index():
     user_id = session["user_id"]
+    selected_month = request.args.get("month")
 
-    transactions = db.execute(
-        """
-        SELECT 
-            transactions.id,
-            transactions.type,
-            transactions.amount_cents,
-            transactions.description,
-            transactions.date,
-            categories.name AS category_name
-        FROM transactions
-        LEFT JOIN categories 
-            ON transactions.category_id = categories.id
-        WHERE transactions.user_id = ?
-        ORDER BY transactions.date DESC, transactions.id DESC
-        """,
-        user_id
-    )
+    if selected_month:
+        transactions = db.execute(
+            """
+            SELECT 
+                transactions.id,
+                transactions.type,
+                transactions.amount_cents,
+                transactions.description,
+                transactions.date,
+                categories.name AS category_name
+            FROM transactions
+            LEFT JOIN categories 
+                ON transactions.category_id = categories.id
+            WHERE transactions.user_id = ?
+            AND transactions.date LIKE ?
+            ORDER BY transactions.date DESC, transactions.id DESC
+            """,
+        user_id,
+        selected_month + "%"
+        )
+    else:
+        transactions = db.execute(
+            """
+            SELECT 
+                transactions.id,
+                transactions.type,
+                transactions.amount_cents,
+                transactions.description,
+                transactions.date,
+                categories.name AS category_name
+            FROM transactions
+            LEFT JOIN categories 
+                ON transactions.category_id = categories.id
+            WHERE transactions.user_id = ?
+            ORDER BY transactions.date DESC, transactions.id DESC
+            """,
+            user_id
+        )
 
     income_cents = 0
     expense_cents = 0

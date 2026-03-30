@@ -10,6 +10,13 @@
     <p>Balance {{ balance }}</p>
     
     {% if transactions %}
+    <form action="/" method="get">
+        <label for="month">Filter by month:</label>
+        <input type="month" name="month" id="month" value="{{ selected_month }}">
+        <button type="submit">Filter</button>
+
+        <a href="/">Clear</a>
+    </form>
         <table>
             <thead>
                 <tr>
