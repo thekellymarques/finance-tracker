@@ -95,14 +95,14 @@ def index():
     balance_cents = income_cents - expense_cents
 
     income = f"{income_cents / 100:.2f}"
-    expense = f"{expense_cents / 100:.2f}"
+    expenses = f"{expense_cents / 100:.2f}"
     balance = f"{balance_cents / 100:.2f}"
 
     return render_template(
         "index.html", 
         transactions=transactions,
         income=income,
-        expense=expense,
+        expenses=expenses,
         balance=balance
         )
 
@@ -198,7 +198,7 @@ def add():
         flash("You must select a type.")
         return redirect("/add")
 
-    if type_ not in ["income", "expense"]:
+    if type_ not in ["income", "expenses"]:
         flash("Invalid transaction type.")
         return redirect("/add")
 
@@ -302,7 +302,7 @@ def edit(transaction_id):
         flash("You must select a type.")
         return redirect(f"/edit/{transaction_id}")
     
-    if type_ not in ["income", "expense"]:
+    if type_ not in ["income", "expenses"]:
         flash("Invalid transaction type.")
         return redirect(f"/edit/{transaction_id}")
     

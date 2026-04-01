@@ -2,54 +2,76 @@
 
 {% block body %}
 
-    <h1>Dashboard</h1>
+    <h1 class="page-title">Dashboard</h1>
 
-    <h2>Sumary</h2>
-    <p>Total income: {{ income }}</p>
-    <p>Total expense {{ expense }}</p>
-    <p>Balance {{ balance }}</p>
+    <div class="card">
+        <h2 class="section-title">Summary</h2>
+
+        <div class="summary-grid">
+            <div class="summary-box">
+                <p class="summary-label">Income</p>
+                <p class="summary-value">{{ income }}</p>
+            </div>
+            
+            <div class="summary-box">
+                <p class="summary-label">Expenses</p>
+                <p class="summary-value">{{ expenses }}</p>
+            </div>
+
+            <div class="summary-box">
+                <p class="summary-label">Balance</p>
+                <p class="summary-value">{{ balance }}</p>
+            </div>
+        </div>
+    </div>
     
-    {% if transactions %}
-    <form action="/" method="get">
-        <label for="month">Filter by month:</label>
-        <input type="month" name="month" id="month" value="{{ selected_month }}">
-        <button type="submit">Filter</button>
+    <div class="card">
+        <h2 class="section-title">Transactions</h2>
 
-        <a href="/">Clear</a>
-    </form>
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Type</th>
-                    <th>Amount</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for transaction in transactions %}
+        {% if transactions %}
+            <form action="/" method="get" class="filter-form">
+                <label for="month">Filter by month:</label>
+                <input type="month" name="month" id="month" value="{{ selected_month }}">
+                <button type="submit">Filter</button>
+
+                <a href="/" class="clear-link">Clear</a>
+            </form>
+
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ transaction.date }}</td>
-                        <td>{{ transaction.type }}</td>
-                        <td>{{ transaction.amount }}</td>
-                        <td>{{ transaction.description }}</td>
-                        <td>{{ transaction.category_name or "-"}}</td>
-                        <td>
-                            <a href="/edit/{{ transaction.id }}">Edit</a>
-                            <form action="/delete/{{ transaction.id }}" method="post">
-                                <button type="submit" onclick=" return confirm('Delete this transaction?')">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Action</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No transactions yet.</p>
-    {% endif %}
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.date }}</td>
+                            <td>{{ transaction.type }}</td>
+                            <td>{{ transaction.amount }}</td>
+                            <td>{{ transaction.description }}</td>
+                            <td>{{ transaction.category_name or "-"}}</td>
+                            <td class="actions">
+                                <a href="/edit/{{ transaction.id }}" class="btn btn-edit">Edit</a>
+
+                                <form action="/delete/{{ transaction.id }}" method="post" class="inline-form">
+                                    <button type="submit" class="btn btn-delete" onclick=" return confirm('Delete this transaction?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No transactions yet.</p>
+        {% endif %}
+    </div>
 
 {% endblock %}
