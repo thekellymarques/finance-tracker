@@ -198,7 +198,7 @@ def add():
         flash("You must select a type.")
         return redirect("/add")
 
-    if type_ not in ["income", "expenses"]:
+    if type_ not in ["income", "expense"]:
         flash("Invalid transaction type.")
         return redirect("/add")
 

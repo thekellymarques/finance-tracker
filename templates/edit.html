@@ -27,18 +27,18 @@
             </div>
 
             <div class="form-group">
-                <label>Amount</label>
+                <label for="amount">Amount</label>
                 <input name="amount" type="number" step="0.01" id="amount" value="{{ transaction.amount }}" required>
             </div>
 
             <div class="form-group">
-                <label>Description</label>
+                <label for="description">Description</label>
                 <input name="description" type="text" id="decription" value="{{ transaction.description }}">
             </div>
 
             <div class="form-group">
-                <label>Date</label>
-                <input name="date" type="text" value="{{ transaction.date }}" required>
+                <label for="date">Date</label>
+                <input name="date" type="text" id="date" value="{{ transaction.date }}" required>
             </div>
 
             <div class="form-actions">
