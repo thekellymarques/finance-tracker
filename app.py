@@ -1,4 +1,3 @@
-import os
 from functools import wraps
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -99,12 +98,13 @@ def index():
     balance = f"{balance_cents / 100:.2f}"
 
     return render_template(
-        "index.html", 
+        "index.html",
         transactions=transactions,
         income=income,
         expenses=expenses,
-        balance=balance
-        )
+        balance=balance,
+        selected_month=selected_month
+)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -302,7 +302,7 @@ def edit(transaction_id):
         flash("You must select a type.")
         return redirect(f"/edit/{transaction_id}")
     
-    if type_ not in ["income", "expenses"]:
+    if type_ not in ["income", "expense"]:
         flash("Invalid transaction type.")
         return redirect(f"/edit/{transaction_id}")
     
