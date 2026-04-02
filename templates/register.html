@@ -1,14 +1,29 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="card form-card">
+        <h1 class="page-title">Register</h1>
 
-    <form action="/register" method="post" autocomplete="off" >
-        <input name="username" type="text" placeholder="Username">
-        <input name="password" type="password" placeholder="Password">
-        <input name="confirmation" type="password" placeholder="Confirm Password">
-        <button type="submit">Register</button>
-    </form>
+        <form action="/register" method="post" autocomplete="off" class="form-layout">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input name="username" type="text" autocomplete="username" required>
+            </div>
 
-    <a href="/login">Already have an account? Login</a>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input name="password" type="password" autocomplete="new-password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmation">Confirm password</label>
+                <input name="confirmation" type="password" autocomplete="new-password">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Register</button>
+                <a href="/login" class="form-link">Already have an account? Login.</a>
+            </div>
+            </form>
+    </div>
 {% endblock %}

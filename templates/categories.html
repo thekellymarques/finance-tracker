@@ -1,20 +1,32 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h1>Categories</h1>
+    <h1 class="page-title">Categories</h1>
+    
+    <div class="card">
+        <h2 class="selection-title">Add category</h2>
 
-    <form action="/categories" method="post">
-        <input name="name" type="text" placeholder="Category name" autocomplete="off">
-        <button type="submit">Add Category</button>
-    </form>
+        <form action="/categories" method="post" class="form-layout">
+            <div class="form-group">
+                <label for="name">Category name</label>
+                <input name="name" type="text" id name autocomplete="off" required>
+            </div>
 
-    {% if categories %}
-        <ul>
-            {% for category in categories %}
-                <li>{{category.name}}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No categories yet.</p>
-    {% endif %}
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Add Category</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card">
+        {% if categories %}
+            <ul class="category-list">
+                {% for category in categories %}
+                    <li class="category-item">{{category.name}}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No categories yet.</p>
+        {% endif %}
+    </div>
 {% endblock %}

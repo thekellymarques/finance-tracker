@@ -1,33 +1,47 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h1>Add Transaction</h1>
+    <div class="card form-card">
+        <h1 class="page-title">Add Transaction</h1>
 
-    <form action="/add" method="post">
-        <label for="type">Type</label>
-        <select name="type" id="type">
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-        </select>
+        <form action="/add" method="post" class="form-layout">
+           <div class="form-group">
+                <label for="type">Type</label>
+                <select name="type" id="type" required>
+                    <option value="">Select type</option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
+            </div>
 
-        <label for="amount">Amount</label>
-        <input name="amount" type="number" id="amount" step="0.01" placeholder="0.00">
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input name="amount" type="number" id="amount" step="0.01" placeholder="0.00" required>
+            </div>
 
-        <label for="description">Description</label>
-        <input name="description" type="text" id="description" placeholder="Description">
+            <div class="form-group">
+                <label for="Category">Category</label>
+                <select name="category_id" id="category_id" required>
+                    <option value="">Select Category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label for="date">Date</label>
-        <input name="date" type="date" id="date">
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input name="description" type="text" id="description">
+            </div>
 
-        <label for="Category">Category</label>
-        <select name="category_id">
-            <option value="">Select Category</option>
-            {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input name="date" type="date" id="date" required>
+            </div>
 
-        <button type="submit">Add Transaction</button>
-    </form>
-
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Add Transaction</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
