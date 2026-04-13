@@ -51,7 +51,7 @@
                 <tbody>
                     {% for transaction in transactions %}
                         <tr>
-                            <td>{{ transaction.date }}</td>
+                            <td>{{ transaction.date_display or transaction.date }}</td>
                             <td>{{ transaction.type }}</td>
                             <td>{{ transaction.amount }}</td>
                             <td>{{ transaction.description }}</td>
