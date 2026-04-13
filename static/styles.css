@@ -299,4 +299,7 @@ tr:hover {
     border-radius: 10px;
     margin-bottom: 10px;
     background-color: #f9fbf9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

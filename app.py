@@ -1,7 +1,12 @@
+# AI tools (e.g., ChatGPT) were used as a learning aid for debugging,
+# UI suggestions, and README guidance.
+# All implementation, understanding, and final decisions are my own.
+
 from functools import wraps
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from cs50 import SQL
+from datetime import datetime
 from flask import Flask, flash, redirect, render_template, request, session
 import flask_session
 
@@ -85,6 +90,13 @@ def index():
 
     for transaction in transactions:
         transaction["amount"] = f"{transaction['amount_cents'] / 100:.2f}"
+
+        try:
+            transaction["date_display"] = datetime.strptime(
+                transaction["date"], "%Y-%m-%d"
+        ).strftime("%d/%m/%Y")
+        except ValueError:
+            transaction["date_display"] = transaction["date"]
 
         if transaction["type"] == "income":
             income_cents += transaction["amount_cents"]
@@ -404,6 +416,18 @@ def categories():
 
     return render_template("categories.html", categories=categories)
 
+@app.route("/delete_category/<int:category_id>", methods=["POST"])
+@login_required 
+def delete_category(category_id):
+    user_id = session["user_id"]
+
+    db.execute(
+        "DELETE FROM categories WHERE id = ? AND user_id = ?",
+        category_id,
+        user_id
+    )
+    flash("Category deleted successfully.")
+    return redirect("/categories")
 
 
 

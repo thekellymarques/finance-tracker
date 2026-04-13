@@ -22,7 +22,14 @@
         {% if categories %}
             <ul class="category-list">
                 {% for category in categories %}
-                    <li class="category-item">{{category.name}}</li>
+                    <li class="category-item">
+                        <span>{{category.name}}</span>
+                        <form action="/delete_category/{{ category.id }}" method="post" class="inline-form">
+                            <button type="submit" class="btn btn-delete" onclick="return confirm('Delete this category?')">
+                            Delete
+                            </button>
+                        </form>
+                    </li>
                 {% endfor %}
             </ul>
         {% else %}
