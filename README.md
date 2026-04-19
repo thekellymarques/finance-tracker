@@ -2,6 +2,8 @@
 
 #### Video Demo:  
 
+https://www.youtube.com/watch?v=7sp3m4XfeyQ
+
 #### Description:
 
 Finance Tracker is a web application that helps users manage their personal finances by tracking income and expenses in a simple and organized way.
