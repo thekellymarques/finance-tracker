@@ -123,7 +123,7 @@ def register():
     if request.method == "GET":
         return render_template("register.html")
 
-    username = request.form.get("username")
+    username = request.form.get("username").strip().lower()
     password = request.form.get("password")
     confirmation = request.form.get("confirmation")
 
@@ -156,7 +156,7 @@ def login():
     if request.method == "GET":
         return render_template("login.html")
     
-    username = request.form.get("username")
+    username = request.form.get("username").strip().lower()
     password = request.form.get("password")
 
     if not username:
